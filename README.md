@@ -4,7 +4,7 @@ A web-based administrative task management system designed to help users organis
 
 ## 🌐 Live Demo
 
-👉 **[Open the Administrative Task Tracker](https://madike-tech.github.io/Administrative-task-tracker/)**
+👉 **[Open the Administrative Task Tracker](https://madike-tech.github.io/Administrative-task-tracker-/)**
 
 ## 📌 Project Overview
 
