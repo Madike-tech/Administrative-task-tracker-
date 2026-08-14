@@ -195,22 +195,58 @@
     <!-- STATISTICS -->
     <div class="stats">
 
-        <div class="stat">
-            <p>Total Tasks</p>
-            <h2 id="total">0</h2>
-        </div>
+    <div class="stat">
+        <p>Total Tasks</p>
+        <h2 id="total">0</h2>
+    </div>
 
-        <div class="stat">
-            <p>Completed</p>
-            <h2 id="completed">0</h2>
-        </div>
+    <div class="stat">
+        <p>Completed</p>
+        <h2 id="completed">0</h2>
+    </div>
 
-        <div class="stat">
-            <p>Pending</p>
-            <h2 id="pending">0</h2>
+    <div class="stat">
+        <p>Pending</p>
+        <h2 id="pending">0</h2>
+    </div>
+
+    <div class="stat">
+        <p>Overdue</p>
+        <h2 id="overdue">0</h2>
+    </div>
+
+</div>
+
+<div class="form">
+
+    <h2>Task Progress</h2>
+
+    <p>
+        Completion:
+        <strong id="completionPercentage">0%</strong>
+    </p>
+
+    <div style="
+        width: 100%;
+        background: #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20px;
+    ">
+
+        <div
+            id="progressBar"
+            style="
+                width: 0%;
+                height: 100%;
+                background: #2563eb;
+                transition: width 0.3s;
+            ">
         </div>
 
     </div>
+
+</div>
 
     <!-- SEARCH AND FILTER -->
     <div class="filters">
@@ -497,7 +533,47 @@ function getDeadlineStatus(deadline) {
         document.getElementById("pending")
             .textContent =
             tasks.length - completedTasks;
+// OVERDUE TASKS
 
+const today = new Date();
+
+today.setHours(0, 0, 0, 0);
+
+const overdueTasks = tasks.filter(task => {
+
+    if (!task.deadline || task.completed) {
+        return false;
+    }
+
+    const dueDate =
+        new Date(task.deadline + "T00:00:00");
+
+    dueDate.setHours(0, 0, 0, 0);
+
+    return dueDate < today;
+
+});
+
+document.getElementById("overdue")
+    .textContent = overdueTasks.length;
+
+
+// COMPLETION PERCENTAGE
+
+const percentage = tasks.length === 0
+    ? 0
+    : Math.round(
+        (completedTasks / tasks.length) * 100
+      );
+
+document.getElementById("completionPercentage")
+    .textContent = percentage + "%";
+
+
+// PROGRESS BAR
+
+document.getElementById("progressBar")
+    .style.width = percentage + "%";
     }
 
 
@@ -508,5 +584,6 @@ function getDeadlineStatus(deadline) {
 
 </body>
 </html>
+
 
 
