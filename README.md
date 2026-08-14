@@ -1,29 +1,33 @@
-# Administrative Task Tracker
+# 📋 Administrative Task Tracker
 
-A simple web-based administrative task tracker designed to help users organise daily tasks, priorities, deadlines and task status.
+A web-based administrative task management system designed to help users organise tasks, monitor priorities, manage deadlines and track productivity.
 
 ## 🌐 Live Demo
 
-[Open the Administrative Task Tracker](https://madike-tech.github.io/Administrative-task-tracker/)
+👉 **[Open the Administrative Task Tracker](https://madike-tech.github.io/Administrative-task-tracker/)**
 
 ## 📌 Project Overview
 
-The Administrative Task Tracker was created as a practical portfolio project to demonstrate basic web development, organisation and administrative problem-solving skills.
+The Administrative Task Tracker is a personal portfolio project created to demonstrate practical administrative, organisational and digital skills.
 
-The application allows users to create tasks, assign priorities, set deadlines and track completed and pending tasks.
+The application provides a simple way to record administrative tasks, assign priorities, monitor deadlines and track task completion.
 
 ## ✨ Features
 
-- Add administrative tasks
-- Set task priority
-- Set deadlines
-- Mark tasks as completed
-- Delete tasks
-- View total tasks
-- View completed tasks
-- View pending tasks
-- Save tasks using browser local storage
-- Responsive design for different screen sizes
+- ➕ Add administrative tasks
+- 🔴 High, Medium and Low priority levels
+- 📅 Deadline management
+- ⚠️ Overdue task detection
+- 🔎 Search tasks
+- 🔽 Filter tasks by priority
+- ✅ Complete and undo tasks
+- 🗑️ Delete tasks
+- 📊 Task statistics dashboard
+- 📈 Completion percentage and progress bar
+- 💾 Browser Local Storage
+- 📥 Export tasks to CSV
+- 🖨️ Print a management report
+- 📱 Mobile-friendly design
 
 ## 🛠️ Technologies Used
 
@@ -34,26 +38,51 @@ The application allows users to create tasks, assign priorities, set deadlines a
 - GitHub Pages
 - Browser Local Storage
 
-## 🎯 Purpose
+## 🎯 Purpose of the Project
 
-This project was created as a practical learning project to develop digital and technical skills while applying administrative concepts to a simple web application.
+This project was developed as a practical learning and portfolio project to demonstrate initiative, continuous learning and the ability to apply digital tools to common administrative tasks.
+
+It combines administrative concepts such as:
+
+- Task organisation
+- Prioritisation
+- Deadline monitoring
+- Record keeping
+- Reporting
+- Data management
+
+with basic web development skills.
 
 ## 👩🏽‍💻 About the Developer
 
-Created by **Lucy Madike** as part of a personal portfolio to demonstrate initiative, continuous learning and interest in developing digital skills.
+**Lucy Madike**
 
-## 📚 Skills Demonstrated
+This project was created as part of my personal portfolio to demonstrate my willingness to learn new digital skills, solve practical problems and continuously develop professionally.
 
-- Administrative organisation
+## 💼 Skills Demonstrated
+
+### Administrative Skills
+- Organisation
 - Task management
+- Prioritisation
+- Record keeping
+- Deadline management
+- Reporting
 - Attention to detail
-- Problem solving
-- Basic HTML
-- Basic CSS
-- Basic JavaScript
-- Version control with GitHub
-- Website deployment with GitHub Pages
 
-## 📄 License
+### Digital Skills
+- HTML
+- CSS
+- JavaScript
+- GitHub
+- GitHub Pages
+- Data export
+- Browser Local Storage
 
-This project is available for educational and portfolio purposes.
+## 📂 Project Structure
+
+```text
+Administrative-task-tracker/
+│
+├── index.html
+└── README.md
