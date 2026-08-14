@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Task Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #333;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        input, select, button {
+            padding: 12px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input {
+            width: 35%;
+        }
+
+        select {
+            width: 20%;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat h2 {
+            margin: 5px 0;
+            color: #2563eb;
+        }
+
+        .task {
+            background: white;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .priority {
+            font-weight: bold;
+        }
+
+        .high {
+            color: #dc2626;
+        }
+
+        .medium {
+            color: #d97706;
+        }
+
+        .low {
+            color: #16a34a;
+        }
+
+        .complete-btn {
+            background: #16a34a;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        @media (max-width: 700px) {
+            input, select {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .task {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Administrative Task Tracker</h1>
+    <p>Organise daily administrative tasks efficiently</p>
+</header>
+
+<div class="container">
+
+    <div class="form">
+        <h2>Add New Task</h2>
+
+        <input type="text" id="taskInput" placeholder="Enter task">
+
+        <select id="priority">
+            <option value="High">High Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="Low">Low Priority</option>
+        </select>
+
+        <input type="date" id="deadline">
+
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <p>Total Tasks</p>
+            <h2 id="total">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>Completed</p>
+            <h2 id="completed">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>Pending</p>
+            <h2 id="pending">0</h2>
+        </div>
+    </div>
+
+    <h2>Task List</h2>
+
+    <div id="taskList"></div>
+
+</div>
+
+<script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const priority = document.getElementById("priority");
+        const deadline = document.getElementById("deadline");
+
+        if (taskInput.value.trim() === "") {
+            alert("Please enter a task.");
+            return;
+        }
+
+        const task = {
+            id: Date.now(),
+            name: taskInput.value,
+            priority: priority.value,
+            deadline: deadline.value,
+            completed: false
+        };
+
+        tasks.push(task);
+
+        saveTasks();
+
+        taskInput.value = "";
+        deadline.value = "";
+
+        displayTasks();
+    }
+
+    function completeTask(id) {
+        tasks = tasks.map(task => {
+            if (task.id === id) {
+                task.completed = !task.completed;
+            }
+
+            return task;
+        });
+
+        saveTasks();
+        displayTasks();
+    }
+
+    function deleteTask(id) {
+        tasks = tasks.filter(task => task.id !== id);
+
+        saveTasks();
+        displayTasks();
+    }
+
+    function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function displayTasks() {
+        const taskList = document.getElementById("taskList");
+
+        taskList.innerHTML = "";
+
+        tasks.forEach(task => {
+
+            const taskDiv = document.createElement("div");
+
+            taskDiv.className = task.completed
+                ? "task completed"
+                : "task";
+
+            taskDiv.innerHTML = `
+                <div>
+                    <strong>${task.name}</strong>
+                    <br>
+                    <span class="priority ${task.priority.toLowerCase()}">
+                        ${task.priority} Priority
+                    </span>
+                    <br>
+                    <small>Deadline: ${task.deadline || "No deadline"}</small>
+                </div>
+
+                <div>
+                    <button class="complete-btn"
+                        onclick="completeTask(${task.id})">
+                        ${task.completed ? "Undo" : "Complete"}
+                    </button>
+
+                    <button class="delete-btn"
+                        onclick="deleteTask(${task.id})">
+                        Delete
+                    </button>
+                </div>
+            `;
+
+            taskList.appendChild(taskDiv);
+        });
+
+        document.getElementById("total").textContent = tasks.length;
+
+        const completedTasks =
+            tasks.filter(task => task.completed).length;
+
+        document.getElementById("completed").textContent = completedTasks;
+
+        document.getElementById("pending").textContent =
+            tasks.length - completedTasks;
+    }
+
+    displayTasks();
+</script>
+
+</body>
+</html>
