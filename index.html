@@ -71,7 +71,7 @@ header p {
     margin: 0;
 }
 
-/* MAIN CONTAINER */
+/* MAIN */
 
 .container {
     max-width: 1100px;
@@ -124,7 +124,10 @@ button:hover {
 
 .export-btn {
     background: #15803d;
-    margin-top: 10px;
+}
+
+.print-btn {
+    background: #7c3aed;
 }
 
 .complete-btn {
@@ -161,7 +164,7 @@ button:hover {
     color: #2563eb;
 }
 
-/* PROGRESS BAR */
+/* PROGRESS */
 
 .progress-container {
     width: 100%;
@@ -251,6 +254,61 @@ footer {
     font-size: 14px;
 }
 
+/* PRINT REPORT */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    nav,
+    header,
+    .form,
+    .filters,
+    .stats,
+    footer,
+    .complete-btn,
+    .delete-btn {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #tasks {
+        display: none;
+    }
+
+    .task {
+        display: block;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        page-break-inside: avoid;
+    }
+
+    .task.completed {
+        opacity: 1;
+    }
+
+    #printTitle {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+}
+
+/* PRINT TITLE HIDDEN ON SCREEN */
+
+#printTitle {
+    display: none;
+}
+
 /* MOBILE */
 
 @media (max-width: 700px) {
@@ -323,7 +381,9 @@ Administrative Task Tracker
 
 <header>
 
-<h1>Administrative Task Tracker</h1>
+<h1>
+Administrative Task Tracker
+</h1>
 
 <p>
 Organise tasks, monitor deadlines and improve administrative productivity.
@@ -337,11 +397,29 @@ Organise tasks, monitor deadlines and improve administrative productivity.
 <div class="container" id="dashboard">
 
 
+<!-- PRINT REPORT TITLE -->
+
+<div id="printTitle">
+
+<h1>
+Administrative Task Management Report
+</h1>
+
+<p>
+Generated on:
+<span id="reportDate"></span>
+</p>
+
+</div>
+
+
 <!-- ADD TASK -->
 
 <div class="form">
 
-<h2>Add New Task</h2>
+<h2>
+Add New Task
+</h2>
 
 <input
 type="text"
@@ -383,7 +461,9 @@ Add Task
 
 <div class="stat">
 
-<p>Total Tasks</p>
+<p>
+Total Tasks
+</p>
 
 <h2 id="total">
 0
@@ -394,7 +474,9 @@ Add Task
 
 <div class="stat">
 
-<p>Completed</p>
+<p>
+Completed
+</p>
 
 <h2 id="completed">
 0
@@ -405,7 +487,9 @@ Add Task
 
 <div class="stat">
 
-<p>Pending</p>
+<p>
+Pending
+</p>
 
 <h2 id="pending">
 0
@@ -416,7 +500,9 @@ Add Task
 
 <div class="stat">
 
-<p>Overdue</p>
+<p>
+Overdue
+</p>
 
 <h2 id="overdue">
 0
@@ -431,13 +517,17 @@ Add Task
 
 <div class="form">
 
-<h2>Task Progress</h2>
+<h2>
+Task Progress
+</h2>
 
 <p>
+
 Completion:
 <strong id="completionPercentage">
 0%
 </strong>
+
 </p>
 
 <div class="progress-container">
@@ -452,11 +542,13 @@ id="progressBar">
 </div>
 
 
-<!-- SEARCH AND FILTER -->
+<!-- SEARCH -->
 
 <div class="filters">
 
-<h2>Search & Filter</h2>
+<h2>
+Search & Filter
+</h2>
 
 <input
 type="text"
@@ -488,9 +580,10 @@ Low Priority
 
 </select>
 
-
 <br>
 
+
+<!-- CSV BUTTON -->
 
 <button
 class="export-btn"
@@ -498,6 +591,18 @@ onclick="exportCSV()"
 >
 
 📥 Export Tasks to CSV
+
+</button>
+
+
+<!-- PRINT BUTTON -->
+
+<button
+class="print-btn"
+onclick="printReport()"
+>
+
+🖨️ Print Management Report
 
 </button>
 
@@ -516,7 +621,10 @@ Task List
 
 <!-- ABOUT -->
 
-<div class="form" id="about">
+<div
+class="form"
+id="about"
+>
 
 <h2>
 About This Project
@@ -539,7 +647,9 @@ priorities, manage deadlines and track completion.
 
 <p>
 
-<strong>Skills demonstrated:</strong>
+<strong>
+Skills demonstrated:
+</strong>
 
 Administration, organisation, task management,
 problem-solving, HTML, CSS, JavaScript and GitHub.
@@ -557,7 +667,9 @@ problem-solving, HTML, CSS, JavaScript and GitHub.
 <footer>
 
 Administrative Task Tracker
+
 <br>
+
 Portfolio Project by Lucy Madike
 
 </footer>
@@ -565,7 +677,7 @@ Portfolio Project by Lucy Madike
 
 <script>
 
-/* LOAD SAVED TASKS */
+/* LOAD TASKS */
 
 let tasks =
 JSON.parse(localStorage.getItem("tasks")) || [];
@@ -598,13 +710,17 @@ const task = {
 
 id: Date.now(),
 
-name: taskInput.value.trim(),
+name:
+taskInput.value.trim(),
 
-priority: priority.value,
+priority:
+priority.value,
 
-deadline: deadline.value,
+deadline:
+deadline.value,
 
-completed: false
+completed:
+false
 
 };
 
@@ -655,7 +771,9 @@ displayTasks();
 function deleteTask(id) {
 
 tasks =
-tasks.filter(task => task.id !== id);
+tasks.filter(
+task => task.id !== id
+);
 
 
 saveTasks();
@@ -665,7 +783,7 @@ displayTasks();
 }
 
 
-/* SAVE TASKS */
+/* SAVE */
 
 function saveTasks() {
 
@@ -956,7 +1074,8 @@ return dueDate < today;
 
 
 document.getElementById("total")
-.textContent = total;
+.textContent =
+total;
 
 
 document.getElementById("completed")
@@ -998,7 +1117,7 @@ percentage + "%";
 }
 
 
-/* EXPORT TO CSV */
+/* EXPORT CSV */
 
 function exportCSV() {
 
@@ -1049,7 +1168,8 @@ const blob =
 new Blob(
 [csv],
 {
-type: "text/csv;charset=utf-8;"
+type:
+"text/csv;charset=utf-8;"
 }
 );
 
@@ -1062,7 +1182,9 @@ const link =
 document.createElement("a");
 
 
-link.href = url;
+link.href =
+url;
+
 
 link.download =
 "administrative-tasks.csv";
@@ -1070,11 +1192,34 @@ link.download =
 
 document.body.appendChild(link);
 
+
 link.click();
+
 
 document.body.removeChild(link);
 
+
 URL.revokeObjectURL(url);
+
+}
+
+
+/* PRINT MANAGEMENT REPORT */
+
+function printReport() {
+
+const today =
+new Date();
+
+
+document.getElementById(
+"reportDate"
+)
+.textContent =
+today.toLocaleDateString();
+
+
+window.print();
 
 }
 
@@ -1086,7 +1231,10 @@ function escapeHTML(text) {
 const div =
 document.createElement("div");
 
-div.textContent = text;
+
+div.textContent =
+text;
+
 
 return div.innerHTML;
 
