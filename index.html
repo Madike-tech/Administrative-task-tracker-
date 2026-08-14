@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -334,7 +334,36 @@
         );
 
     }
+// DEADLINE STATUS
+function getDeadlineStatus(deadline) {
 
+    if (!deadline) {
+        return "No deadline";
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dueDate = new Date(deadline + "T00:00:00");
+    dueDate.setHours(0, 0, 0, 0);
+
+    const difference =
+        Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+
+    if (difference < 0) {
+        return `🔴 OVERDUE — ${deadline}`;
+    }
+
+    if (difference === 0) {
+        return `🟠 DUE TODAY — ${deadline}`;
+    }
+
+    if (difference === 1) {
+        return `🟡 DUE TOMORROW — ${deadline}`;
+    }
+
+    return `🟢 UPCOMING — ${deadline}`;
+}
 
     // DISPLAY TASKS
     function displayTasks() {
@@ -411,11 +440,11 @@
                     <br>
 
                     <small>
+    Deadline:
+    ${getDeadlineStatus(task.deadline)}
+</small>
 
-                        Deadline:
-                        ${task.deadline || "No deadline"}
-
-                    </small>
+                       
 
                 </div>
 
@@ -479,3 +508,5 @@
 
 </body>
 </html>
+
+
